@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customers - FreshMart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header (same as other pages) -->
+  <header class="bg-green-600 p-4 text-white shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold flex items-center">
+        <i class="fas fa-shopping-basket mr-2"></i> FreshMart
+      </h1>
+      <nav class="hidden md:flex space-x-6">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="products.html" class="hover:underline">Products</a>
+        <!-- <a href="inventory.html" class="hover:underline">Inventory</a> -->
+        <a href="customers.html" class="hover:underline font-medium">Customers</a>
+        <a href="invoices.html" class="hover:underline">Invoices</a>
+      </nav>
+      <button class="md:hidden text-xl" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="md:hidden hidden bg-green-700 p-4" id="mobileMenu">
+      <div class="flex flex-col space-y-3">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="products.html" class="hover:underline">Products</a>
+        <!-- <a href="inventory.html" class="hover:underline">Inventory</a> -->
+        <a href="customers.html" class="hover:underline">Customers</a>
+        <a href="invoices.html" class="hover:underline">Invoices</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto py-8">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold">Customer Management</h2>
+      <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" 
+              onclick="openCustomerModal()">
+        <i class="fas fa-plus mr-2"></i> Add Customer
+      </button>
+    </div>
+
+    <!-- Customer Table -->
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+      <table class="min-w-full">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Phone</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200" id="customerTableBody">
+          <!-- Customers will be loaded via JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Customer Modal -->
+  <div id="customerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+      <div class="flex justify-between items-center border-b p-4">
+        <h3 class="text-lg font-medium" id="customerModalTitle">Add New Customer</h3>
+        <button onclick="closeCustomerModal()" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form id="customerForm" class="p-4">
+        <input type="hidden" id="customerId">
+        <div class="mb-4">
+          <label for="customerName" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+          <input type="text" id="customerName" required
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+        </div>
+        <div class="mb-4">
+          <label for="customerEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input type="email" id="customerEmail"
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+        </div>
+        <div class="mb-4">
+          <label for="customerPhone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+          <input type="tel" id="customerPhone"
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+        </div>
+        <div class="mb-4">
+          <label for="customerAddress" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+          <textarea id="customerAddress" rows="3"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+        </div>
+        <div class="flex justify-end space-x-2 pt-4">
+          <button type="button" onclick="closeCustomerModal()" 
+                  class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+            Cancel
+          </button>
+          <button type="submit" 
+                  class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="scripts/customers.js"></script>
+</body>
+</html>
