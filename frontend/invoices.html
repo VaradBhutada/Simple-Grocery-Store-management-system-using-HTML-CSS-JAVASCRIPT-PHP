@@ -1,0 +1,167 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoices - FreshMart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header (same as other pages) -->
+  <header class="bg-green-600 p-4 text-white shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold flex items-center">
+        <i class="fas fa-shopping-basket mr-2"></i> FreshMart
+      </h1>
+      <nav class="hidden md:flex space-x-6">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="products.html" class="hover:underline">Products</a>
+        <!-- <a href="inventory.html" class="hover:underline">Inventory</a> -->
+        <a href="customers.html" class="hover:underline">Customers</a>
+        <a href="invoices.html" class="hover:underline font-medium">Invoices</a>
+      </nav>
+      <button class="md:hidden text-xl" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="md:hidden hidden bg-green-700 p-4" id="mobileMenu">
+      <div class="flex flex-col space-y-3">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="products.html" class="hover:underline">Products</a>
+        <!-- <a href="inventory.html" class="hover:underline">Inventory</a> -->
+        <a href="customers.html" class="hover:underline">Customers</a>
+        <a href="invoices.html" class="hover:underline">Invoices</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto py-8">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold">Invoice Management</h2>
+      <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" 
+              onclick="openInvoiceModal()">
+        <i class="fas fa-plus mr-2"></i> Create Invoice
+      </button>
+    </div>
+
+    <!-- Invoice Table -->
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+      <table class="min-w-full">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-4 text-left text-s font-medium text-gray-500 uppercase">Invoice #</th>
+            <th class="px-6 py-4 text-left text-s font-medium text-gray-500 uppercase">Customer</th>
+            <th class="px-6 py-4 text-left text-s font-medium text-gray-500 uppercase">Date</th>
+            <th class="px-6 py-4 text-left text-s font-medium text-gray-500 uppercase">Amount</th>
+            <th class="px-6 py-4 text-left text-s font-medium text-gray-500 uppercase">Status</th>
+            <th class="px-6 py-4 text-left text-s font-medium text-gray-500 uppercase">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200" id="invoiceTableBody">
+          <!-- Invoices will be loaded via JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Invoice Modal -->
+  <div id="invoiceModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl">
+      <div class="flex justify-between items-center border-b p-4">
+        <h3 class="text-lg font-medium" id="invoiceModalTitle">Create New Invoice</h3>
+        <button onclick="closeInvoiceModal()" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form id="invoiceForm" class="p-4">
+        <input type="hidden" id="invoiceId">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label for="invoiceCustomer" class="block text-sm font-medium text-gray-700 mb-1">Customer</label>
+            <select id="invoiceCustomer" required
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+              <option value="">Select Customer</option>
+              <!-- Customers will be loaded via JavaScript -->
+            </select>
+          </div>
+          <div>
+            <label for="invoiceDate" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+            <input type="date" id="invoiceDate" required
+                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Items</label>
+          <div class="bg-gray-50 p-4 rounded-md">
+            <div class="grid grid-cols-12 gap-2 mb-2 font-medium text-sm text-gray-500">
+              <div class="col-span-5">Product</div>
+              <div class="col-span-2">Price</div>
+              <div class="col-span-2">Quantity</div>
+              <div class="col-span-2">Total</div>
+              <div class="col-span-1"></div>
+            </div>
+            <div id="invoiceItems">
+              <!-- Invoice items will be added here -->
+            </div>
+            <button type="button" onclick="addInvoiceItem()" 
+                    class="mt-2 text-green-500 hover:text-green-700 text-sm">
+              <i class="fas fa-plus mr-1"></i> Add Item
+            </button>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center border-t pt-4">
+          <div class="text-lg font-medium">Total: <span id="invoiceTotal">0.00</span></div>
+          <div class="flex space-x-2">
+            <button type="button" onclick="closeInvoiceModal()" 
+                    class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+              Cancel
+            </button>
+            <button type="submit" 
+                    class="px-6 py-4 bg-green-500 text-white rounded-md hover:bg-green-600">
+              Save Invoice
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Invoice Template (hidden) -->
+  <template id="invoiceItemTemplate">
+    <div class="grid grid-cols-12 gap-2 mb-2 items-center invoice-item">
+      <div class="col-span-5">
+        <select class="item-product w-full px-2 py-1 border border-gray-300 rounded">
+          <option value="">Select Product</option>
+          <!-- Products will be loaded via JavaScript -->
+        </select>
+      </div>
+      <div class="col-span-2">
+        <input type="number" class="item-price w-full px-2 py-1 border border-gray-300 rounded" readonly>
+      </div>
+      <div class="col-span-2">
+        <input type="number" min="1" value="1" class="item-quantity w-full px-2 py-1 border border-gray-300 rounded">
+      </div>
+      <div class="col-span-2">
+        <input type="number" class="item-total w-full px-2 py-1 border border-gray-300 rounded" readonly>
+      </div>
+      <div class="col-span-1 text-center">
+        <button type="button" class="remove-item text-red-500 hover:text-red-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <script src="scripts/invoices.js?v=1.1"></script>
+</body>
+</html>

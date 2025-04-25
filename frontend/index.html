@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopMate</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .product-card:hover { transform: translateY(-5px); transition: 0.2s ease-out; }
+    .low-stock { border: 2px solid #ff6b6b !important; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <header class="bg-green-600 p-4 text-white shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold flex items-center">
+        <i class="fas fa-shopping-basket mr-2"></i>ShopMate 
+      </h1>
+      <nav class="hidden md:flex space-x-6">
+        <a href="index.html" class="hover:underline font-medium">Home</a>
+        <a href="products.html" class="hover:underline">Products</a>
+        <!-- <a href="inventory.html" class="hover:underline">Inventory</a> -->
+        <a href="customers.html" class="hover:underline">Customers</a>
+        <a href="invoices.html" class="hover:underline">Invoices</a>
+
+      </nav>
+      <button class="md:hidden text-xl" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="md:hidden hidden bg-green-700 p-4" id="mobileMenu">
+      <div class="flex flex-col space-y-3">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="products.html" class="hover:underline">Products</a>
+        <!-- <a href="inventory.html" class="hover:underline">Inventory</a> -->
+        <a href="customers.html" class="hover:underline">Customers</a>
+        <a href="invoices.html" class="hover:underline">Invoices</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-green-500 text-white py-16">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-4">Welcome to ShopMate</h2>
+      <p class="text-xl mb-8">Where inventory meets invoicing</p>
+      <a href="products.html" class="bg-white text-green-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition">Browse Products</a>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="py-12 container mx-auto">
+    <h2 class="text-3xl font-bold mb-8 text-center">Featured Products</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="featuredProducts">
+      <!-- Products will be loaded via JavaScript -->
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="bg-gray-200 py-8">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-2xl font-bold text-green-600" id="totalProducts">0</h3>
+        <p class="text-gray-600">Products Available</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-2xl font-bold text-green-600" id="totalCustomers">0</h3>
+        <p class="text-gray-600">Happy Customers</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-2xl font-bold text-green-600" id="totalSales">0</h3>
+        <p class="text-gray-600">Completed Orders</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>
